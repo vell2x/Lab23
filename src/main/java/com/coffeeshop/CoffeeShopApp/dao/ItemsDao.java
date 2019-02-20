@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.coffeeshop.CoffeeShopApp.ShopItems;
 
 @Repository
-public class ShopList {
+public class ItemsDao {
 	@Autowired
 	private JdbcTemplate jdbc;
 

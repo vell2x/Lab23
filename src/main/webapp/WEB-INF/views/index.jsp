@@ -15,18 +15,20 @@
 		<table class="table">
 			<thead>
 				<tr>
-					<th>Name</th><th>Description</th><th>Quantity</th>
+					<th>Name</th><th>Description</th><th>Quantity</th><th>Prices</th>
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="list" items="${item}">
+				<c:forEach var="l" items="${list}">
 				<tr>
-					<td>${ list.name }</td>
-					<td>${ list.description }</td>
-					<td>${ list.quantity }</td>
+					<td>${l.name}</td>
+					<td>${l.description}</td>
+					<td>${l.quantity}</td>
+					<td>${l.price}</td>
 				</tr>
 				</c:forEach>
 			</tbody>
-		</table></div>
+		</table>
+</div>
 </body>
 </html>

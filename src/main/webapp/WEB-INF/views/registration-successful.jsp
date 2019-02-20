@@ -10,7 +10,7 @@
 </head>
 <body>
 	<h1>Congratulations you are registered</h1>
-	<p>Hello ${ firstname } ${ lastname } </p>
+	<p>Hello ${ firstName } ${ lastName } </p>
 	<p><a href="/">Home</a></p>
 </body>
 </html>

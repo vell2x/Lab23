@@ -1,38 +1,38 @@
 package com.coffeeshop.CoffeeShopApp;
 
 public class UserProfile {
-	private String firstname;
-	private String lastname;
+	private String firstName;
+	private String lastName;
 	private String email;
-	private String phonenumber;
+	private String phoneNumber;
 	private String password;
 	
 	public UserProfile() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public UserProfile(String firstname, String lastname, String email, String phonenumber, String password) {
-		this.firstname = firstname;
-		this.lastname = lastname;
+	public UserProfile(String firstName, String lastname, String email, String phonenumber, String password) {
+		this.firstName = firstName;
+		this.lastName = lastname;
 		this.email = email;
-		this.phonenumber = phonenumber;
+		this.phoneNumber = phonenumber;
 		this.password = password;
 	}
 
 	public String getFirstName() {
-		return firstname;
+		return firstName;
 	}
 
-	public void setFirstName(String firstname) {
-		this.firstname = firstname;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
 	public String getLastName() {
-		return lastname;
+		return lastName;
 	}
 
 	public void setLastName(String lastname) {
-		this.lastname = lastname;
+		this.lastName = lastname;
 	}
 
 	public String getEmail() {
@@ -44,11 +44,11 @@ public class UserProfile {
 	}
 
 	public String getPhoneNumber() {
-		return phonenumber;
+		return phoneNumber;
 	}
 
 	public void setPhoneNumber(String phonenumber) {
-		this.phonenumber = phonenumber;
+		this.phoneNumber = phonenumber;
 	}
 
 	public String getPassword() {
@@ -61,8 +61,8 @@ public class UserProfile {
 
 	@Override
 	public String toString() {
-		return "UserProfile [firstName=" + firstname + ", lastName=" + lastname + ", email=" + email + ", phoneNumber="
-				+ phonenumber + ", password=" + password + "]";
+		return "UserProfile [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", phoneNumber="
+				+ phoneNumber + ", password=" + password + "]";
 	}
 
 }

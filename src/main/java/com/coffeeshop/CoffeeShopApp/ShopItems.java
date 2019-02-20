@@ -1,58 +1,57 @@
 package com.coffeeshop.CoffeeShopApp;
 
 public class ShopItems {
-	private String itemName;
-	private String itemDescription;
-	private int itemQuantity;
-	private double itemPrice;
+	private String name;
+	private String description;
+	private int quantity;
+	private double price;
 	
 	public ShopItems() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ShopItems(String itemName, String itemDescription, int itemQuantity, double itemPrice) {
-		this.itemName = itemName;
-		this.itemDescription = itemDescription;
-		this.itemQuantity = itemQuantity;
-		this.itemPrice = itemPrice;
+	public ShopItems(String name, String description, int quantity, double price) {
+		this.name = name;
+		this.description = description;
+		this.quantity = quantity;
+		this.price = price;
 	}
 
-	public String getItemName() {
-		return itemName;
+	public String getName() {
+		return name;
 	}
 
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getItemDescription() {
-		return itemDescription;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setItemDescription(String itemDescription) {
-		this.itemDescription = itemDescription;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public int getItemQuantity() {
-		return itemQuantity;
+	public int getQuantity() {
+		return quantity;
 	}
 
-	public void setItemQuantity(int itemQuantity) {
-		this.itemQuantity = itemQuantity;
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
-	public double getItemPrice() {
-		return itemPrice;
+	public double getPrice() {
+		return price;
 	}
 
-	public void setItemPrice(double itemPrice) {
-		this.itemPrice = itemPrice;
+	public void setPrice(double price) {
+		this.price = price;
 	}
 
 	@Override
 	public String toString() {
-		return "ShopItems [itemName=" + itemName + ", itemDescription=" + itemDescription + ", itemQuantity="
-				+ itemQuantity + ", itemPrice=" + itemPrice + "]";
+		return "ShopItems [itemName=" + name + ", itemDescription=" + description + ", itemQuantity="
+				+ quantity + ", itemPrice=" + price + "]";
 	}
-
 }

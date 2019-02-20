@@ -13,11 +13,11 @@
  <form action="/registered" method="post">
 		<p>
 			<label>First Name:</label> 
-			<input name="firstname" type="text" pattern="[A-Z][a-z]*" maxlength="20" />
+			<input name="firstName" type="text" pattern="[A-Z][a-z]*" maxlength="20" />
 		</p>
 		<p>
 			<label>Last Name:</label> 
-			<input name="lastname" type="text" pattern="[A-Z][a-z]*" maxlength="20" />
+			<input name="lastName" type="text" pattern="[A-Z][a-z]*" maxlength="20" />
 		</p>
 		<p>
 			<label>Email:</label> 
@@ -25,7 +25,7 @@
 		</p>
 		<p>
 			<label>Phone:</label> 
-			<input name="phonenumber" type="number" step="1" />
+			<input name="phoneNumber" type="number" step="1" />
 		</p>
 		<p>
 			<label>Password:</label> 

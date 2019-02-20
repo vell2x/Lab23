@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.coffeeshop.CoffeeShopApp.UserProfile;
 
 @Repository
-public class CustomerList {
+public class UserDao {
 	@Autowired
 	private JdbcTemplate jdbc;
 	

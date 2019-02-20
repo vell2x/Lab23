@@ -8,21 +8,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.coffeeshop.CoffeeShopApp.dao.CustomerList;
-import com.coffeeshop.CoffeeShopApp.dao.ShopList;
+import com.coffeeshop.CoffeeShopApp.dao.UserDao;
+import com.coffeeshop.CoffeeShopApp.dao.ItemsDao;
 
 @Controller
 public class CoffeeShopController {
 	@Autowired
-	CustomerList users;
+	UserDao userDao;
 	
 	@Autowired
-	private ShopList items;
+	private ItemsDao itemsDao;
 	
 	@RequestMapping("/")
 	public ModelAndView showHome() {
-		List<ShopItems> item = items.findAll();
-		return new ModelAndView("list", "/", item);
+		List<ShopItems> item = itemsDao.findAll();
+		System.out.println(item);
+		return new ModelAndView("/index", "list", item);
 	}
 	
 	@RequestMapping("/registration")
@@ -32,8 +33,12 @@ public class CoffeeShopController {
 	
 	@PostMapping("/registered")
 	public ModelAndView addSubmit(UserProfile user) {		
-		users.create(user);
+		userDao.create(user);
 		
-		return new ModelAndView("/registration-successful");
+		ModelAndView mav = new ModelAndView("/registration-successful");
+		mav.addObject("firstName", user.getFirstName());
+		mav.addObject("lastName", user.getLastName());
+		
+		return mav;
 	}
 }
