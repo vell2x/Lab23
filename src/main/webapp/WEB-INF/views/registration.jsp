@@ -10,7 +10,7 @@
 </head>
 <body>
 	<h2>Register Here</h2>
- <form action="/registered">
+ <form action="/registered" method="post">
 		<p>
 			<label>First Name:</label> 
 			<input name="firstname" type="text" pattern="[A-Z][a-z]*" maxlength="20" />
@@ -21,7 +21,7 @@
 		</p>
 		<p>
 			<label>Email:</label> 
-			<input name="email" type="email" maxlength="25"/>
+			<input name="email" type="email" maxlength="25" />
 		</p>
 		<p>
 			<label>Phone:</label> 

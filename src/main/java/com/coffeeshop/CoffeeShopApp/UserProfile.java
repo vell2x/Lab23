@@ -1,38 +1,38 @@
 package com.coffeeshop.CoffeeShopApp;
 
 public class UserProfile {
-	private String firstName;
-	private String lastName;
+	private String firstname;
+	private String lastname;
 	private String email;
-	private int phoneNumber;
+	private String phonenumber;
 	private String password;
 	
 	public UserProfile() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public UserProfile(String firstName, String lastName, String email, int phoneNumber, String password) {
-		this.firstName = firstName;
-		this.lastName = lastName;
+	public UserProfile(String firstname, String lastname, String email, String phonenumber, String password) {
+		this.firstname = firstname;
+		this.lastname = lastname;
 		this.email = email;
-		this.phoneNumber = phoneNumber;
+		this.phonenumber = phonenumber;
 		this.password = password;
 	}
 
 	public String getFirstName() {
-		return firstName;
+		return firstname;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setFirstName(String firstname) {
+		this.firstname = firstname;
 	}
 
 	public String getLastName() {
-		return lastName;
+		return lastname;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setLastName(String lastname) {
+		this.lastname = lastname;
 	}
 
 	public String getEmail() {
@@ -43,12 +43,12 @@ public class UserProfile {
 		this.email = email;
 	}
 
-	public int getPhoneNumber() {
-		return phoneNumber;
+	public String getPhoneNumber() {
+		return phonenumber;
 	}
 
-	public void setPhoneNumber(int phoneNumber) {
-		this.phoneNumber = phoneNumber;
+	public void setPhoneNumber(String phonenumber) {
+		this.phonenumber = phonenumber;
 	}
 
 	public String getPassword() {
@@ -61,8 +61,8 @@ public class UserProfile {
 
 	@Override
 	public String toString() {
-		return "UserProfile [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", phoneNumber="
-				+ phoneNumber + ", password=" + password + "]";
+		return "UserProfile [firstName=" + firstname + ", lastName=" + lastname + ", email=" + email + ", phoneNumber="
+				+ phonenumber + ", password=" + password + "]";
 	}
 
 }

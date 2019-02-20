@@ -1,19 +1,28 @@
 package com.coffeeshop.CoffeeShopApp;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.coffeeshop.CoffeeShopApp.dao.CustomerList;
+import com.coffeeshop.CoffeeShopApp.dao.ShopList;
 
 @Controller
 public class CoffeeShopController {
 	@Autowired
-	CustomerList user;
+	CustomerList users;
+	
+	@Autowired
+	private ShopList items;
 	
 	@RequestMapping("/")
 	public ModelAndView showHome() {
-		return new ModelAndView("index");
+		List<ShopItems> item = items.findAll();
+		return new ModelAndView("list", "/", item);
 	}
 	
 	@RequestMapping("/registration")
@@ -21,20 +30,10 @@ public class CoffeeShopController {
 		return new ModelAndView("registration");
 	}
 	
-	@RequestMapping("/registered")
-	public ModelAndView registrationComplete(
-			@RequestParam("firstname") String firstname,
-			@RequestParam("lastname") String lastname,
-			@RequestParam("email") String email,
-			@RequestParam("phonenumber") int phonenumber,
-			@RequestParam("password") String password) {
-		user.addCustomer(firstname, lastname, email, phonenumber, password);
-		String fName = firstname;
-		String lName = lastname;
+	@PostMapping("/registered")
+	public ModelAndView addSubmit(UserProfile user) {		
+		users.create(user);
 		
-		ModelAndView mav = new ModelAndView("/registration-successful");
-		mav.addObject("firstname", fName);
-		mav.addObject("lastname", lName);
-		return mav;
+		return new ModelAndView("/registration-successful");
 	}
 }
