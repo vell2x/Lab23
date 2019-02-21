@@ -2,20 +2,35 @@ package com.coffeeshop.CoffeeShopApp.dao;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Repository;
 
 import com.coffeeshop.CoffeeShopApp.ShopItems;
+import com.coffeeshop.CoffeeShopApp.UserProfile;
 
 @Repository
+@Transactional
 public class ItemsDao {
-	@Autowired
-	private JdbcTemplate jdbc;
+	@PersistenceContext
+	private EntityManager em;
 
 	public List<ShopItems> findAll() {
-		String sql = "SELECT * FROM ITEMS";
-		return jdbc.query(sql, new BeanPropertyRowMapper<>(ShopItems.class));
+		return em.createQuery("FROM ShopItems", ShopItems.class).getResultList();
+	}
+	
+	public void update(ShopItems item) {
+		em.merge(item);
+	}
+	
+	public void create(ShopItems item) {
+		em.persist(item);
+	}
+	
+	public void delete(int id) {
+		ShopItems item = em.getReference(ShopItems.class, id);
+		em.remove(item);
 	}
 }

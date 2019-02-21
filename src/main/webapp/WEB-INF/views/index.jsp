@@ -30,5 +30,6 @@
 			</tbody>
 		</table>
 </div>
+<p><a href="/admin">Admin</a></p>
 </body>
 </html>
