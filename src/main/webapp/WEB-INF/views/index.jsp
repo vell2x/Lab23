@@ -25,6 +25,10 @@
 					<td>${l.description}</td>
 					<td>${l.quantity}</td>
 					<td>${l.price}</td>
+					<td><form action="/add-to-cart" method="get">
+					<input name="id" hidden=true value="${l.id}" />
+					<button>Add to Cart</button>
+					</form></td>
 				</tr>
 				</c:forEach>
 			</tbody>

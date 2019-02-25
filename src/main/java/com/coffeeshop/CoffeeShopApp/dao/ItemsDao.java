@@ -9,7 +9,6 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import com.coffeeshop.CoffeeShopApp.ShopItems;
-import com.coffeeshop.CoffeeShopApp.UserProfile;
 
 @Repository
 @Transactional
@@ -19,6 +18,10 @@ public class ItemsDao {
 
 	public List<ShopItems> findAll() {
 		return em.createQuery("FROM ShopItems", ShopItems.class).getResultList();
+	}
+	
+	public ShopItems findById(int id) {
+		return em.find(ShopItems.class, id);
 	}
 	
 	public void update(ShopItems item) {

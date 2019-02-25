@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,6 +19,9 @@ public class ShopItems {
 	private String description;
 	private int quantity;
 	private double price;
+	
+	@ManyToOne
+	private ShoppingCart cart;
 	
 	public ShopItems() {
 		// TODO Auto-generated constructor stub

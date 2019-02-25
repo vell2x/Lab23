@@ -1,7 +1,14 @@
 package com.coffeeshop.CoffeeShopApp;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.servlet.http.HttpSession;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,15 +17,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.coffeeshop.CoffeeShopApp.dao.UserDao;
+import com.coffeeshop.CoffeeShopApp.dao.CartDao;
 import com.coffeeshop.CoffeeShopApp.dao.ItemsDao;
 
 @Controller
 public class CoffeeShopController {
 	@Autowired
-	UserDao userDao;
+	private UserDao userDao;
 	
 	@Autowired
 	private ItemsDao itemsDao;
+	
+	@Autowired
+	private CartDao cartDao;
 	
 	@RequestMapping("/")
 	public ModelAndView showHome() {
@@ -37,7 +48,27 @@ public class CoffeeShopController {
 		return new ModelAndView("registration");
 	}
 	
-	@PostMapping("/registered")
+	@RequestMapping("/admin-edit")
+	public ModelAndView showEditPage(
+			@RequestParam("id") int id) {
+		ShopItems item = itemsDao.findById(id);
+		return new ModelAndView("/edit-page", "object", item);
+	}
+	
+	@RequestMapping("/add-to-cart")
+	public ModelAndView showCartPage(
+			@RequestParam("id") int id) {
+		ShopItems item = itemsDao.findById(id);
+		ShoppingCart cart = new ShoppingCart();
+		cart.setName(item.getName());
+		cart.setPrice(item.getPrice());
+		ModelAndView mav = new ModelAndView("cart-page");
+		mav.addObject("object", item);
+		mav.addObject("cartItem", cart);
+		return mav;
+	}
+	
+	@PostMapping("/remgistered")
 	public ModelAndView addSubmit(UserProfile user) {		
 		userDao.create(user);
 		
@@ -62,5 +93,23 @@ public class CoffeeShopController {
 		itemsDao.delete(id);
 		
 		return new ModelAndView("redirect:/admin");
+	}
+	
+	@PostMapping("/admin-edit")
+	public ModelAndView editItem(ShopItems edit) {	
+		itemsDao.update(edit);
+		List<ShopItems> item = itemsDao.findAll();
+		return new ModelAndView("/admin-page", "list", item);
+	}
+	
+	@PostMapping("/item-added")
+	public ModelAndView itemAddedToCart(ShoppingCart purchase) {	
+		if(purchase.getQuantity() - 1 > 0) {
+			//purchase.setQuantity(purchase.getQuantity()-1);
+			
+		}
+		cartDao.create(purchase);
+		List<ShopItems> item = itemsDao.findAll();
+		return new ModelAndView("/index", "list", item);
 	}
 }

@@ -24,9 +24,16 @@
 					<td>${l.description}</td>
 					<td>${l.quantity}</td>
 					<td>${l.price}</td>
-					<td<a href="/admin-edit?id=${ l.id }">Edit</a><td>
-					<td><a href="/admin-delete?id=${ l.id }">Delete</a><td>
-					</form>
+					
+					<td><form action="admin-edit" method="get">
+					<input name="id" hidden=true value="${l.id}" />
+					<button>Edit</button>
+					</form></td>
+					
+					<td><form action="admin-delete" method="post">
+					<input name="id" hidden=true value="${l.id}" />
+					<button>Delete</button>
+					</form></td>
 				</tr>
 				</c:forEach>
 			</tbody>
