@@ -1,6 +1,7 @@
 package com.coffeeshop.CoffeeShopApp.dao;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
@@ -20,6 +21,19 @@ public class UserDao {
 	}
 	
 	public UserProfile findByUsername(String username) {
-		return em.find(UserProfile.class, username);
+		UserProfile user;
+
+		
+
+		try {
+
+			user = (UserProfile) em.createQuery("FROM UserProfile where username = :username")
+					.setParameter("username", username).getSingleResult();
+
+		} catch (NoResultException e) {
+			user = null;
+		}
+		return user;
+
 	}
 }

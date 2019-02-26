@@ -37,7 +37,7 @@
 		</p>
 		<p>
 			<label>Confirm Password:</label> 
-			<input name="password" type="password" />
+			<input name="confirm-password" type="password" />
 		</p>
 		<p>
 			<button>Submit</button>

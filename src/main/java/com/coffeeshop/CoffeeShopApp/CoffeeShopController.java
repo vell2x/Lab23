@@ -82,7 +82,7 @@ public class CoffeeShopController {
 			mav.addObject("message", "Incorrect username or password.");
 			return mav;
 		}
-		session.setAttribute("user", user.getUsername());
+		session.setAttribute("profile", user);
 		List<ShopItems> item = itemsDao.findAll();
 		return new ModelAndView("/index", "list", item);
 	}
