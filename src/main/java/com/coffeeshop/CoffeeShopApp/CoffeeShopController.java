@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.hibernate.HibernateException;
@@ -14,9 +15,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.coffeeshop.CoffeeShopApp.dao.UserDao;
+
 import com.coffeeshop.CoffeeShopApp.dao.CartDao;
 import com.coffeeshop.CoffeeShopApp.dao.ItemsDao;
 
@@ -38,13 +41,14 @@ public class CoffeeShopController {
 	}
 	
 	@RequestMapping("/admin")
-	public ModelAndView showAdminPage() {
+	public ModelAndView showAdminPage(HttpServletResponse response) {
 		List<ShopItems> item = itemsDao.findAll();
 		return new ModelAndView("/admin-page", "list", item);
 	}
 	
 	@RequestMapping("/registration")
-	public ModelAndView showRegistrationPage() {
+	public ModelAndView showRegistrationPage(
+			@SessionAttribute(name="profile", required=false) UserProfile user) {
 		return new ModelAndView("registration");
 	}
 	
@@ -59,23 +63,52 @@ public class CoffeeShopController {
 	public ModelAndView showCartPage(
 			@RequestParam("id") int id) {
 		ShopItems item = itemsDao.findById(id);
-		ShoppingCart cart = new ShoppingCart();
-		cart.setName(item.getName());
-		cart.setPrice(item.getPrice());
-		ModelAndView mav = new ModelAndView("cart-page");
-		mav.addObject("object", item);
-		mav.addObject("cartItem", cart);
-		return mav;
+		return new ModelAndView("cart-page", "object", item);
 	}
 	
-	@PostMapping("/remgistered")
-	public ModelAndView addSubmit(UserProfile user) {		
+	@RequestMapping("/login")
+	public ModelAndView showLoginForm() {
+		return new ModelAndView("login");
+	}
+
+	@PostMapping("/login")
+	public ModelAndView submitLoginForm(
+			@RequestParam("username") String username,
+			@RequestParam("password") String password,
+			HttpSession session) {
+		UserProfile user = userDao.findByUsername(username);
+		if (user == null || !password.equals(user.getPassword())) {
+			ModelAndView mav = new ModelAndView("login");
+			mav.addObject("message", "Incorrect username or password.");
+			return mav;
+		}
+		session.setAttribute("user", user.getUsername());
+		List<ShopItems> item = itemsDao.findAll();
+		return new ModelAndView("/index", "list", item);
+	}
+
+	@RequestMapping("/logout")
+	public ModelAndView logout(HttpSession session) {
+		session.invalidate();
+		List<ShopItems> item = itemsDao.findAll();
+		return new ModelAndView("/index", "list", item);
+	}
+	
+	@PostMapping("/registered")
+	public ModelAndView addSubmit(UserProfile user, 
+			@RequestParam("confirm-password") String confirmPassword,
+			HttpSession session) {
+		UserProfile existingUser = userDao.findByUsername(user.getUsername());
+		if (existingUser != null) {
+			return new ModelAndView("registration", "message", "This user already exist.");
+		}
+		
+		if (!confirmPassword.equals(user.getPassword())) {
+			return new ModelAndView("registration", "message", "Passwords do not match.");
+		}
 		userDao.create(user);
-		
+		session.setAttribute("profile", user);
 		ModelAndView mav = new ModelAndView("/registration-successful");
-		mav.addObject("firstName", user.getFirstName());
-		mav.addObject("lastName", user.getLastName());
-		
 		return mav;
 	}
 	
@@ -103,13 +136,19 @@ public class CoffeeShopController {
 	}
 	
 	@PostMapping("/item-added")
-	public ModelAndView itemAddedToCart(ShoppingCart purchase) {	
-		if(purchase.getQuantity() - 1 > 0) {
-			//purchase.setQuantity(purchase.getQuantity()-1);
-			
+	public ModelAndView itemAddedToCart(ShopItems item, 
+			@SessionAttribute(name="profile", required=false) UserProfile user) {	
+		ShoppingCart cart = new ShoppingCart();
+		if(item.getQuantity() - 1 > -1) {
+			cart.setQuantity(cart.getQuantity()+1);
+			cart.setItem(item);
+			cart.setUser(user);
+			item.setQuantity(item.getQuantity()-1);
+			itemsDao.update(item);
+			cartDao.create(cart);
 		}
-		cartDao.create(purchase);
-		List<ShopItems> item = itemsDao.findAll();
-		return new ModelAndView("/index", "list", item);
+		List<ShopItems> list = itemsDao.findAll();
+		return new ModelAndView("/index", "list", list);
+		
 	}
 }

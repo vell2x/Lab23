@@ -1,10 +1,14 @@
 package com.coffeeshop.CoffeeShopApp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -14,6 +18,8 @@ public class UserProfile {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="user_id") // name of SQL column
 	private int id;
+	
+	private String username;
 
 	@Column(name="firstname")
 	private String firstName;
@@ -27,6 +33,9 @@ public class UserProfile {
 	private String phoneNumber;
 	
 	private String password;
+	
+	@OneToMany(mappedBy = "user")
+    private List<ShoppingCart> cart = new ArrayList<ShoppingCart>();
 	
 	public UserProfile() {
 		// TODO Auto-generated constructor stub
@@ -93,6 +102,22 @@ public class UserProfile {
 	public String toString() {
 		return "UserProfile [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", phoneNumber="
 				+ phoneNumber + ", password=" + password + "]";
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public List<ShoppingCart> getCart() {
+		return cart;
+	}
+
+	public void setCart(List<ShoppingCart> cart) {
+		this.cart = cart;
 	}
 
 }

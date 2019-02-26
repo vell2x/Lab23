@@ -10,18 +10,23 @@
 </head>
 <body>
 <h3>Add ${object.name} to cart</h3>
+<p>Welcome ${ profile.firstName } ${ profile.lastName } </p>
 	<table >
 			<tr>
-				<th>Name</th><th>Quantity</th><th>Prices</th>
+				<th>Name</th><th>Description</th><th>Quantity</th><th>Prices</th>
 			</tr>
-			<form action="/item-added" method="post">
 			<tr>
-				<td>${cartItem.name}</td>
-				<td>${cartItem.quantity}</td>
-				<td>${cartItem.price}</td>
-				<td><button>Add Item</button></td>
+				<td>${object.name}</td>
+				<td>${object.description}</td>
+				<td>${object.quantity}</td>
+				<td>${object.price}</td>
+				<td><form action="/item-added" method="post">
+				<input name="id" hidden="true" value="${object.id}"/>
+				<input name="name" hidden="true" value="${object.name}"/>
+				<input name="quantity" hidden="true" value="${object.quantity}"/>
+				<input name="price" hidden="true" value="${object.price}"/>
+				<button>Add Item</button></form></td>
 			</tr>
-		</form>
 	</table>
 </body>
 </html>

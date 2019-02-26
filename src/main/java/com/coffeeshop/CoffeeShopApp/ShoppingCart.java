@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -17,39 +18,32 @@ public class ShoppingCart {
 	@Column(name="cart_item_id")
 	private int id;
 	
-	@Column(name="cart_name")
-	private String name;
-	
 	@Column(name="cart_quantity")
 	private int quantity;
-	
-	@Column(name="cart_price")
-	private double price;
 
-	@OneToMany(mappedBy = "cart")
-	private Set<ShopItems> item;
+	@ManyToOne
+	private ShopItems item;
+	
+	@ManyToOne
+	private UserProfile user;
 
 	public ShoppingCart() {
-
+	
 	}
-
-	public ShoppingCart(String name, int quantity, double price) {
-		this.name = name;
+	
+	public ShoppingCart(int id, int quantity, ShopItems item, UserProfile user) {
+		this.id = id;
 		this.quantity = quantity;
-		this.price = price;
+		this.item = item;
+		this.user = user;
 	}
 
-	@Override
-	public String toString() {
-		return "ShoppingCart [id=" + id + ", name=" + name + ", quantity=" + quantity + ", price=" + price + "]";
+	public int getId() {
+		return id;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getQuantity() {
@@ -60,19 +54,20 @@ public class ShoppingCart {
 		this.quantity = quantity;
 	}
 
-	public double getPrice() {
-		return price;
-	}
-
-	public void setPrice(double price) {
-		this.price = price;
-	}
-	
-	public Set<ShopItems> getItem() {
+	public ShopItems getItem() {
 		return item;
 	}
 
-	public void setItem(Set<ShopItems> item) {
+	public void setItem(ShopItems item) {
 		this.item = item;
 	}
+
+	public UserProfile getUser() {
+		return user;
+	}
+
+	public void setUser(UserProfile user) {
+		this.user = user;
+	}
+
 }

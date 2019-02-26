@@ -12,6 +12,10 @@
 	<h2>Register Here</h2>
  <form action="/registered" method="post">
 		<p>
+			<label>User Name:</label> 
+			<input name="username" type="text" pattern="[A-Za-z0-9]*" maxlength="20" />
+		</p>
+		<p>
 			<label>First Name:</label> 
 			<input name="firstName" type="text" pattern="[A-Z][a-z]*" maxlength="20" />
 		</p>
@@ -29,6 +33,10 @@
 		</p>
 		<p>
 			<label>Password:</label> 
+			<input name="password" type="password" />
+		</p>
+		<p>
+			<label>Confirm Password:</label> 
 			<input name="password" type="password" />
 		</p>
 		<p>

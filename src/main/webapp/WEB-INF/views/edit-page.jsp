@@ -10,6 +10,7 @@
 <a href="/">Home</a>
 </head>
 <body>
+<p>Hello ${ profile.username } What would you like to edit?</p>
 	<table >
 		<form action="admin-edit" method="post">
 			<tr>

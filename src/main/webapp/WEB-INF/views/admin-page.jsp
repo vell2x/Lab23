@@ -11,6 +11,7 @@
 </head>
 <body>
 	<div><h1>View our Coffeetory</h1>
+	<p>Hello ${ profile.username }</p>
 		<table class="table">
 			<thead>
 				<tr>

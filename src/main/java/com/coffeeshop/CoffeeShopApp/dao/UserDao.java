@@ -6,6 +6,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
+import com.coffeeshop.CoffeeShopApp.ShopItems;
 import com.coffeeshop.CoffeeShopApp.UserProfile;
 
 @Repository
@@ -16,5 +17,9 @@ public class UserDao {
 	
 	public void create(UserProfile user) {
 		em.persist(user);
+	}
+	
+	public UserProfile findByUsername(String username) {
+		return em.find(UserProfile.class, username);
 	}
 }

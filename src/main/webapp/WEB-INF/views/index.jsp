@@ -10,8 +10,8 @@
 </head>
 <body>
  <h1> Welcome! Please sign in or register</h1>
- <p><a href="/registration">Register</a></p>
- <div><h1>View our Coffeetory</h1>
+ <p><a href="/registration">Register</a> &nbsp <a href="/login">Sign In</a></p>
+ <div><h1>Hello ${ profile.username }</h1>
 		<table class="table">
 			<thead>
 				<tr>
